@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Today's Workout Checklist ✅</h2>
+
+<p><b>Date:</b> {{ today }}</p>
+
+<h4>Day 1 Program</h4>
+
+<div class="d-grid gap-2 mb-3">
+
+    <a href="/mark-done/Chest+%26+Shoulders+(Day+1)" class="btn btn-primary">
+        Chest + Shoulders (Day 1)
+    </a>
+
+    <a href="/mark-done/Back+(Day+1)" class="btn btn-primary">
+        Back (Day 1)
+    </a>
+
+    <a href="/mark-done/Arms+(Day+1)" class="btn btn-primary">
+        Arms (Day 1)
+    </a>
+
+    <a href="/mark-done/Legs+(Day+1)" class="btn btn-primary">
+        Legs (Day 1)
+    </a>
+
+</div>
+
+<h4>Day 2 Program</h4>
+
+<div class="d-grid gap-2 mb-3">
+
+    <a href="/mark-done/Chest+%26+Shoulders+(Day+2)" class="btn btn-success">
+        Chest + Shoulders (Day 2)
+    </a>
+
+    <a href="/mark-done/Back+(Day+2)" class="btn btn-success">
+        Back (Day 2)
+    </a>
+
+    <a href="/mark-done/Arms+(Day+2)" class="btn btn-success">
+        Arms (Day 2)
+    </a>
+
+    <a href="/mark-done/Legs+(Day+2)" class="btn btn-success">
+        Legs (Day 2)
+    </a>
+
+</div>
+
+<h4>Recovery</h4>
+
+<div class="d-grid">
+
+    <a href="/mark-done/REST" class="btn btn-secondary">
+        🛌 Rest Day
+    </a>
+
+</div>
+
+{% endblock %}

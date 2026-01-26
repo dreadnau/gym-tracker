@@ -1,0 +1,67 @@
+<form action="/save-workout" method="POST">
+
+    <label>Workout Day</label><br>
+
+    <select name="day" style="width:100%; padding:8px;">
+
+        <option {% if selected_day == "Chest & Shoulders" %}selected{% endif %}>
+            Chest & Shoulders
+        </option>
+
+        <option {% if selected_day == "Back" %}selected{% endif %}>
+            Back
+        </option>
+
+        <option {% if selected_day == "Arms" %}selected{% endif %}>
+            Arms
+        </option>
+
+        <option {% if selected_day == "Legs" %}selected{% endif %}>
+            Legs
+        </option>
+
+    </select>
+
+    <br><br>
+    <label>Program Day</label><br>
+
+    <select name="program_day" style="width:100%; padding:8px;">
+
+        <option>Day 1</option>
+        <option>Day 2</option>
+
+    </select>
+
+    <br><br>
+
+    <label>Exercise Name</label><br>
+
+    <input type="text" name="exercise" required
+       value="{{ selected_exercise if selected_exercise else '' }}"
+       style="width:100%; padding:8px;">
+    <br><br>
+
+    <label>Weight (kg)</label><br>
+
+    <input type="number" name="weight" required
+           style="width:100%; padding:8px;">
+
+    <br><br>
+
+    <label>Reps</label><br>
+
+    <input type="number" name="reps" required
+           style="width:100%; padding:8px;">
+
+    <br><br>
+
+    <label>Set Number</label><br>
+
+    <input type="number" name="set_number" required
+           style="width:100%; padding:8px;">
+
+    <br><br>
+
+    <button type="submit" class="btn">Save Workout</button>
+
+</form>
