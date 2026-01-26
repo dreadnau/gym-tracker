@@ -173,7 +173,9 @@ def update_workout(id):
     workout.exercise = request.form["exercise"]
     workout.weight = request.form["weight"]
     workout.reps = request.form["reps"]
-    workout.sets = request.form["sets"]
+
+    # Use set_number instead of sets
+    workout.set_number = request.form["set_number"]
 
     db.session.commit()
 
