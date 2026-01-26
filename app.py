@@ -2,13 +2,14 @@ from flask import Flask, render_template, request, redirect
 from models import db, Workout
 from models import DailyChecklist
 from datetime import datetime, date
+import os 
 
 
 
 app = Flask(__name__)
 
 # Database config
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///gym.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
