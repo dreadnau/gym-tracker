@@ -269,7 +269,21 @@ def diet_tracker():
 
     logs = DietLog.query.order_by(DietLog.day_number.desc()).all()
 
-    return render_template("diet_tracker.html", logs=logs)
+    # Calculate weekly average (last 7 entries)
+    last_7_days = logs[:7]
+
+    if last_7_days:
+        total_calories = sum(log.calories for log in last_7_days)
+        weekly_avg = int(total_calories / len(last_7_days))
+    else:
+        weekly_avg = 0
+
+    return render_template(
+        "diet_tracker.html",
+        logs=logs,
+        weekly_avg=weekly_avg
+    )
+
 @app.route("/save-diet", methods=["POST"])
 def save_diet():
 
@@ -277,7 +291,7 @@ def save_diet():
     from datetime import datetime
 
     ist = ZoneInfo("Asia/Kolkata")
-    today = datetime.now(ist).strftime("%d %b %Y")
+    today = datetime.now(ist).strftime("%Y-%m-%d")
 
     calories = int(request.form["calories"])
     maintenance = int(request.form["maintenance"])
@@ -285,21 +299,35 @@ def save_diet():
 
     diff = calories - maintenance
 
-    total_days = DietLog.query.count() + 1
+    # Check if today's entry already exists
+    existing = DietLog.query.filter_by(date=today).first()
 
-    new_log = DietLog(
-        date=today,
-        day_number=total_days,
-        calories=calories,
-        maintenance_calories=maintenance,
-        calorie_diff=diff,
-        cheat_meal=True if cheat else False
-    )
+    if existing:
+        # UPDATE existing day
+        existing.calories = calories
+        existing.maintenance_calories = maintenance
+        existing.calorie_diff = diff
+        existing.cheat_meal = True if cheat else False
 
-    db.session.add(new_log)
+    else:
+        # CREATE new day
+        total_days = DietLog.query.count() + 1
+
+        new_log = DietLog(
+            date=today,
+            day_number=total_days,
+            calories=calories,
+            maintenance_calories=maintenance,
+            calorie_diff=diff,
+            cheat_meal=True if cheat else False
+        )
+
+        db.session.add(new_log)
+
     db.session.commit()
 
     return redirect("/diet-tracker")
+
 
 
 

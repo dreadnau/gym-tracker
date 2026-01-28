@@ -3,6 +3,10 @@
 {% block content %}
 
 <h2>🥗 Diet Discipline Tracker</h2>
+<div style="margin:10px 0; padding:10px; background:#f2f2f2; border-radius:10px;">
+    📊 <b>Weekly Average Calories:</b> {{ weekly_avg }} kcal
+</div>
+
 <p>Consistency beats motivation. Stay locked in 🔒</p>
 
 <hr>
@@ -31,7 +35,7 @@
 
 <table class="table">
 
-<tr>
+<tr {% if log.cheat_meal %} style="background-color:#ffe5e5;" {% endif %}>
     <th>Day</th>
     <th>Date</th>
     <th>Status</th>
@@ -46,7 +50,7 @@
 
 <td>Day {{ log.day_number }}</td>
 
-<td>{{ log.date }}</td>
+<td>{{ log.date | replace("-", " ") }}</td>
 
 <td>
 {% if log.calorie_diff <= 0 %}
@@ -68,11 +72,12 @@
 
 <td>
 {% if log.cheat_meal %}
-🍔 Yes
+<span style="color:red; font-weight:bold;">🍔 Cheat</span>
 {% else %}
-🥗 No
+<span style="color:green;">🥗 Clean</span>
 {% endif %}
 </td>
+
 
 </tr>
 
