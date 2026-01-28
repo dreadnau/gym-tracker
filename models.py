@@ -25,3 +25,18 @@ class DailyChecklist(db.Model):
     label = db.Column(db.String(100))  # Chest + Shoulders (Day 1)
 
     completed = db.Column(db.Boolean, default=True)
+
+class DietLog(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    date = db.Column(db.String(20))
+    day_number = db.Column(db.Integer)
+
+    calories = db.Column(db.Integer)
+
+    maintenance_calories = db.Column(db.Integer)
+
+    calorie_diff = db.Column(db.Integer)  # surplus or deficit
+
+    cheat_meal = db.Column(db.Boolean, default=False)

@@ -3,7 +3,15 @@ from models import db, Workout
 from models import DailyChecklist
 from datetime import datetime, date
 import os 
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from models import DietLog
 
+
+
+def get_ist_date():
+    ist = ZoneInfo("Asia/Kolkata")
+    return datetime.now(ist).strftime("%Y-%m-%d")
 
 
 app = Flask(__name__)
@@ -185,13 +193,14 @@ def update_workout(id):
 @app.route("/daily-checklist")
 def daily_checklist():
 
-    today = date.today().strftime("%d %b %Y")
+    today = get_ist_date()
+
 
     return render_template("daily_checklist.html", today=today)
 @app.route("/mark-done/<label>")
 def mark_done(label):
 
-    today = date.today().strftime("%Y-%m-%d")
+    today = get_ist_date()
 
     # Check if entry for today already exists
     existing = DailyChecklist.query.filter_by(date=today).first()
@@ -255,6 +264,42 @@ def checklist_history():
         history=history
     )
 
+@app.route("/diet-tracker")
+def diet_tracker():
+
+    logs = DietLog.query.order_by(DietLog.day_number.desc()).all()
+
+    return render_template("diet_tracker.html", logs=logs)
+@app.route("/save-diet", methods=["POST"])
+def save_diet():
+
+    from zoneinfo import ZoneInfo
+    from datetime import datetime
+
+    ist = ZoneInfo("Asia/Kolkata")
+    today = datetime.now(ist).strftime("%d %b %Y")
+
+    calories = int(request.form["calories"])
+    maintenance = int(request.form["maintenance"])
+    cheat = request.form.get("cheat")
+
+    diff = calories - maintenance
+
+    total_days = DietLog.query.count() + 1
+
+    new_log = DietLog(
+        date=today,
+        day_number=total_days,
+        calories=calories,
+        maintenance_calories=maintenance,
+        calorie_diff=diff,
+        cheat_meal=True if cheat else False
+    )
+
+    db.session.add(new_log)
+    db.session.commit()
+
+    return redirect("/diet-tracker")
 
 
 

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>🥗 Diet Discipline Tracker</h2>
+<p>Consistency beats motivation. Stay locked in 🔒</p>
+
+<hr>
+
+<h4>Add Today's Calories</h4>
+
+<form action="/save-diet" method="POST">
+
+    <label>Calories Consumed Today</label><br>
+    <input type="number" name="calories" required style="width:100%;padding:8px;"><br><br>
+
+    <label>Your Maintenance Calories</label><br>
+    <input type="number" name="maintenance" required style="width:100%;padding:8px;"><br><br>
+
+    <label>
+        <input type="checkbox" name="cheat"> Cheat Meal Today 🍕
+    </label><br><br>
+
+    <button class="btn">Save Day</button>
+
+</form>
+
+<hr>
+
+<h3>🔥 Transformation Log</h3>
+
+<table class="table">
+
+<tr>
+    <th>Day</th>
+    <th>Date</th>
+    <th>Status</th>
+    <th>Calories</th>
+    <th>Maintenance +/-</th>
+    <th>Cheat</th>
+</tr>
+
+{% for log in logs %}
+
+<tr>
+
+<td>Day {{ log.day_number }}</td>
+
+<td>{{ log.date }}</td>
+
+<td>
+{% if log.calorie_diff <= 0 %}
+✅ On Track
+{% else %}
+⚠ Over Target
+{% endif %}
+</td>
+
+<td>{{ log.calories }}</td>
+
+<td>
+{% if log.calorie_diff <= 0 %}
+🔥 {{ log.calorie_diff }}
+{% else %}
++{{ log.calorie_diff }}
+{% endif %}
+</td>
+
+<td>
+{% if log.cheat_meal %}
+🍔 Yes
+{% else %}
+🥗 No
+{% endif %}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}
