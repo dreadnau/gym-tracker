@@ -3,9 +3,19 @@
 {% block content %}
 
 <h2>🥗 Diet Discipline Tracker</h2>
-<div style="margin:10px 0; padding:10px; background:#f2f2f2; border-radius:10px;">
-    📊 <b>Weekly Average Calories:</b> {{ weekly_avg }} kcal
+{% if weekly_avg == 0 %}
+
+<div style="margin:10px 0; padding:10px; background:#e0e0e0; border-radius:10px;">
+📊 <b>Weekly Average Calories:</b> No data yet
 </div>
+
+{% else %}
+
+<div style="margin:10px 0; padding:10px; background:#d4f8d4; border-radius:10px;">
+🔥 <b>Weekly Average Calories:</b> {{ weekly_avg }} kcal
+</div>
+
+{% endif %}
 
 <p>Consistency beats motivation. Stay locked in 🔒</p>
 
