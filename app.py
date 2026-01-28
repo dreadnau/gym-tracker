@@ -328,7 +328,13 @@ def save_diet():
 
     return redirect("/diet-tracker")
 
+@app.route("/reset-diet")
+def reset_diet():
 
+    DietLog.query.delete()
+    db.session.commit()
+
+    return "Diet data reset done"
 
 
 
