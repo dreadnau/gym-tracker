@@ -35,7 +35,7 @@
 
 <table class="table">
 
-<tr {% if log.cheat_meal %} style="background-color:#ffe5e5;" {% endif %}>
+<tr>
     <th>Day</th>
     <th>Date</th>
     <th>Status</th>
@@ -46,7 +46,7 @@
 
 {% for log in logs %}
 
-<tr>
+<tr {% if log.cheat_meal %} style="background-color:#ffe5e5;" {% endif %}>
 
 <td>Day {{ log.day_number }}</td>
 
