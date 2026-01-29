@@ -62,7 +62,7 @@
 
     <td>Day {{ log.day_number }}</td>
 
-    <td>{{ log.date | replace("-", " ") }}</td>
+    <td>{{ log.date | datetimeformat }}</td>
 
     <td>
         {% if log.calorie_diff <= 0 %}

@@ -359,6 +359,12 @@ def update_diet(id):
     db.session.commit()
 
     return redirect("/diet-tracker")
+from datetime import datetime
+
+@app.template_filter("datetimeformat")
+def datetimeformat(value):
+    date_obj = datetime.strptime(value, "%Y-%m-%d")
+    return date_obj.strftime("%d %b %Y")
 
 
 
