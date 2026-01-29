@@ -3,6 +3,7 @@
 {% block content %}
 
 <h2>🥗 Diet Discipline Tracker</h2>
+
 {% if weekly_avg == 0 %}
 
 <div style="margin:10px 0; padding:10px; background:#e0e0e0; border-radius:10px;">
@@ -52,42 +53,49 @@
     <th>Calories</th>
     <th>Maintenance +/-</th>
     <th>Cheat</th>
+    <th>Action</th>
 </tr>
 
 {% for log in logs %}
 
 <tr {% if log.cheat_meal %} style="background-color:#ffe5e5;" {% endif %}>
 
-<td>Day {{ log.day_number }}</td>
+    <td>Day {{ log.day_number }}</td>
 
-<td>{{ log.date | replace("-", " ") }}</td>
+    <td>{{ log.date | replace("-", " ") }}</td>
 
-<td>
-{% if log.calorie_diff <= 0 %}
-✅ On Track
-{% else %}
-⚠ Over Target
-{% endif %}
-</td>
+    <td>
+        {% if log.calorie_diff <= 0 %}
+            ✅ On Track
+        {% else %}
+            ⚠ Over Target
+        {% endif %}
+    </td>
 
-<td>{{ log.calories }}</td>
+    <td>{{ log.calories }}</td>
 
-<td>
-{% if log.calorie_diff <= 0 %}
-🔥 {{ log.calorie_diff }}
-{% else %}
-+{{ log.calorie_diff }}
-{% endif %}
-</td>
+    <td>
+        {% if log.calorie_diff <= 0 %}
+            🔥 {{ log.calorie_diff }}
+        {% else %}
+            +{{ log.calorie_diff }}
+        {% endif %}
+    </td>
 
-<td>
-{% if log.cheat_meal %}
-<span style="color:red; font-weight:bold;">🍔 Cheat</span>
-{% else %}
-<span style="color:green;">🥗 Clean</span>
-{% endif %}
-</td>
+    <td>
+        {% if log.cheat_meal %}
+            <span style="color:red; font-weight:bold;">🍔 Cheat</span>
+        {% else %}
+            <span style="color:green;">🥗 Clean</span>
+        {% endif %}
+    </td>
 
+    <!-- EDIT BUTTON COLUMN -->
+    <td>
+        <a href="/edit-diet/{{ log.id }}" class="btn" style="padding:6px 10px;">
+            ✏ Edit
+        </a>
+    </td>
 
 </tr>
 

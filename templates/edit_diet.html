@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>✏ Edit Diet Entry</h2>
+
+<p><b>Date:</b> {{ log.date }}</p>
+
+<form action="/update-diet/{{ log.id }}" method="POST">
+
+    <label>Calories</label><br>
+    <input type="number" name="calories"
+           value="{{ log.calories }}"
+           required style="width:100%;padding:8px;"><br><br>
+
+    <label>Maintenance Calories</label><br>
+    <input type="number" name="maintenance"
+           value="{{ log.maintenance_calories }}"
+           required style="width:100%;padding:8px;"><br><br>
+
+    <label>
+        <input type="checkbox" name="cheat"
+        {% if log.cheat_meal %} checked {% endif %}>
+        Cheat Meal 🍕
+    </label><br><br>
+
+    <button class="btn">Update Entry</button>
+
+</form>
+
+{% endblock %}

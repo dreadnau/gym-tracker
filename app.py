@@ -336,6 +336,29 @@ def reset_diet():
 
     return "Diet data reset done"
 
+@app.route("/edit-diet/<int:id>")
+def edit_diet(id):
+
+    log = DietLog.query.get(id)
+
+    return render_template("edit_diet.html", log=log)
+@app.route("/update-diet/<int:id>", methods=["POST"])
+def update_diet(id):
+
+    log = DietLog.query.get(id)
+
+    calories = int(request.form["calories"])
+    maintenance = int(request.form["maintenance"])
+    cheat = request.form.get("cheat")
+
+    log.calories = calories
+    log.maintenance_calories = maintenance
+    log.calorie_diff = calories - maintenance
+    log.cheat_meal = True if cheat else False
+
+    db.session.commit()
+
+    return redirect("/diet-tracker")
 
 
 
