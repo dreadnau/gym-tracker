@@ -4,57 +4,80 @@
 
 <h2>Today's Workout Checklist ✅</h2>
 
-<p><b>Date:</b> {{ today }}</p>
+<form method="GET">
 
-<h4>Day 1 Program</h4>
+<label><b>Select Date:</b></label><br>
+
+<input type="date" name="selected_date"
+       value="{{ today_input }}"
+       style="padding:8px; width:100%;">
+
+<br><br>
+
+<button class="btn">Load Date</button>
+
+</form>
+
+<hr>
+
+<h4>DAY 1 PROGRAM</h4>
 
 <div class="d-grid gap-2 mb-3">
 
-    <a href="/mark-done/Chest+%26+Shoulders+(Day+1)" class="btn btn-primary">
-        Chest + Shoulders (Day 1)
+    <a href="/mark-done/Chest%20%2B%20Shoulders%20(Day%201)?date={{ today_input }}"
+       class="btn btn-primary">
+        💪 Chest + Shoulders (Day 1)
     </a>
 
-    <a href="/mark-done/Back+(Day+1)" class="btn btn-primary">
-        Back (Day 1)
+    <a href="/mark-done/Back%20(Day%201)?date={{ today_input }}"
+       class="btn btn-primary">
+        💪 Back (Day 1)
     </a>
 
-    <a href="/mark-done/Arms+(Day+1)" class="btn btn-primary">
-        Arms (Day 1)
+    <a href="/mark-done/Arms%20(Day%201)?date={{ today_input }}"
+       class="btn btn-primary">
+        💪 Arms (Day 1)
     </a>
 
-    <a href="/mark-done/Legs+(Day+1)" class="btn btn-primary">
-        Legs (Day 1)
+    <a href="/mark-done/Legs%20(Day%201)?date={{ today_input }}"
+       class="btn btn-primary">
+        💪 Legs (Day 1)
     </a>
 
 </div>
 
-<h4>Day 2 Program</h4>
+<h4>DAY 2 PROGRAM</h4>
 
 <div class="d-grid gap-2 mb-3">
 
-    <a href="/mark-done/Chest+%26+Shoulders+(Day+2)" class="btn btn-success">
-        Chest + Shoulders (Day 2)
+    <a href="/mark-done/Chest%20%2B%20Shoulders%20(Day%202)?date={{ today_input }}"
+       class="btn btn-success">
+        💪 Chest + Shoulders (Day 2)
     </a>
 
-    <a href="/mark-done/Back+(Day+2)" class="btn btn-success">
-        Back (Day 2)
+    <a href="/mark-done/Back%20(Day%202)?date={{ today_input }}"
+       class="btn btn-success">
+        💪 Back (Day 2)
     </a>
 
-    <a href="/mark-done/Arms+(Day+2)" class="btn btn-success">
-        Arms (Day 2)
+    <a href="/mark-done/Arms%20(Day%202)?date={{ today_input }}"
+       class="btn btn-success">
+        💪 Arms (Day 2)
     </a>
 
-    <a href="/mark-done/Legs+(Day+2)" class="btn btn-success">
-        Legs (Day 2)
+    <a href="/mark-done/Legs%20(Day%202)?date={{ today_input }}"
+       class="btn btn-success">
+        💪 Legs (Day 2)
     </a>
 
 </div>
 
-<h4>Recovery</h4>
+<h4>RECOVERY</h4>
 
 <div class="d-grid">
 
-    <a href="/mark-done/REST" class="btn btn-secondary">
+    <a href="/mark-done/REST?date={{ today_input }}"
+       class="btn btn-secondary">
         🛌 Rest Day
     </a>
 
