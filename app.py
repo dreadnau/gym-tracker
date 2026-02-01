@@ -193,35 +193,60 @@ def update_workout(id):
 @app.route("/daily-checklist")
 def daily_checklist():
 
-    today = get_ist_date()
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
 
+    ist = ZoneInfo("Asia/Kolkata")
 
-    return render_template("daily_checklist.html", today=today)
+    selected_date = request.args.get("selected_date")
+
+    if selected_date:
+        date_obj = datetime.strptime(selected_date, "%Y-%m-%d")
+    else:
+        date_obj = datetime.now(ist)
+
+    display_date = date_obj.strftime("%d %b %Y")
+    input_date = date_obj.strftime("%Y-%m-%d")
+
+    return render_template(
+        "daily_checklist.html",
+        today=display_date,
+        today_input=input_date
+    )
+
 @app.route("/mark-done/<label>")
 def mark_done(label):
 
-    today = get_ist_date()
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
 
-    # Check if entry for today already exists
+    ist = ZoneInfo("Asia/Kolkata")
+
+    selected_date = request.args.get("date")
+
+    if not selected_date:
+        today = datetime.now(ist).strftime("%Y-%m-%d")
+    else:
+        today = selected_date
+
+    print("Saving workout for date:", today)
+
     existing = DailyChecklist.query.filter_by(date=today).first()
 
-    if existing:
-        # Update instead of inserting
-        existing.label = label
-        existing.completed = True
-    else:
-        # Create new entry
-        new_entry = DailyChecklist(
+    if not existing:
+
+        entry = DailyChecklist(
             date=today,
             label=label,
             completed=True
         )
 
-        db.session.add(new_entry)
-
-    db.session.commit()
+        db.session.add(entry)
+        db.session.commit()
 
     return redirect("/daily-checklist")
+
+
 @app.route("/checklist-history")
 def checklist_history():
 
