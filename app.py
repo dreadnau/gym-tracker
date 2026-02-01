@@ -224,27 +224,30 @@ def mark_done(label):
 
     selected_date = request.args.get("date")
 
-    if not selected_date:
-        today = datetime.now(ist).strftime("%Y-%m-%d")
-    else:
+    if selected_date:
         today = selected_date
+    else:
+        today = datetime.now(ist).strftime("%Y-%m-%d")
 
-    print("Saving workout for date:", today)
-
+    # Check existing entry for this date
     existing = DailyChecklist.query.filter_by(date=today).first()
 
-    if not existing:
-
+    if existing:
+        # UPDATE instead of ignore
+        existing.label = label
+    else:
+        # CREATE new entry
         entry = DailyChecklist(
             date=today,
             label=label,
             completed=True
         )
-
         db.session.add(entry)
-        db.session.commit()
+
+    db.session.commit()
 
     return redirect("/daily-checklist")
+
 
 
 @app.route("/checklist-history")
